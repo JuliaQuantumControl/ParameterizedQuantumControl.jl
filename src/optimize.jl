@@ -39,6 +39,20 @@ with explicit keyword arguments to `optimize`.
   `problem.trajectories`. For all `trajectories` that define a `target_state`,
   the element `τₖ` of the vector `τ` will contain the overlap of the state `ϕₖ`
   with the `target_state` of the `k`'th trajectory, or `NaN` otherwise.
+
+
+# Optional problem keyword arguments
+
+* `parameters`: An `AbstractVector` of parameters to tune in the optimization.
+  By default, [`parameters=get_parameters(problem)`](@ref get_parameters). If
+  given explicitly, the vector must alias values inside the generators used in
+  `problem.trajectories` so that mutating the `parameters` array directly
+  affects any subsequent propagation.
+* `lb`: An `AbstractVector` of lower bound values for a box constraint. Must be
+  a vector similar to (and of the same size as `parameters`)
+* `ub`: An `AbstractVector` of upper bound values for a box constraint,
+  cf. `lb`
+* `use_threads`: If given a `true`, propagate trajectories in parallel
 """
 function optimize_parameters(problem)
 
@@ -101,6 +115,9 @@ function optimize_parameters(problem)
         popfirst!(Base.atexit_hooks)
     end
 
+    # restore guess parameters - we don't want to mutate the problem;
+    # the optimized parameters are in result.optimized_parameters
+    copyto!(wrk.parameters, wrk.result.guess_parameters)
     return wrk.result
 
 end

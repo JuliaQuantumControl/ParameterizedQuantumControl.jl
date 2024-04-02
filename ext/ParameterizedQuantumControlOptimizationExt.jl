@@ -20,14 +20,19 @@ function run_optimizer(
         update_result!(wrk, iter)
         #update_hook!(...) # TODO
         info_tuple = info_hook(wrk, iter)
-        copyto!(wrk.result.guess_parameters, wrk.result.optimized_parameters)
         wrk.fg_count .= 0
         (info_tuple !== nothing) && push!(wrk.result.records, info_tuple)
         check_convergence!(wrk.result)
         wrk.result.iter += 1  # next iteration
         return wrk.result.converged
     end
-    prob = OptimizationProblem((u, _) -> f(u), u0, nothing)
+    prob = OptimizationProblem(
+        (u, _) -> f(u),
+        u0,
+        nothing;
+        lb=get(wrk.kwargs, :lb, nothing),
+        ub=get(wrk.kwargs, :ub, nothing)
+    )
     try
         sol = Optimization.solve(prob, optimizer; callback)
     catch exc
