@@ -1,5 +1,5 @@
 using QuantumControlBase: QuantumControlBase, init_prop_trajectory
-using QuantumControlBase: get_parameters
+using QuantumControlBase.QuantumPropagators.Controls: get_parameters
 
 
 """Parameterized Optimization Workspace."""

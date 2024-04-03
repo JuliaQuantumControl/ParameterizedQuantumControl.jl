@@ -1,4 +1,4 @@
-using QuantumControlBase: get_parameters
+using QuantumControlBase.QuantumPropagators.Controls: get_parameters
 using Printf
 using Dates
 
