@@ -14,11 +14,28 @@ Part of [`QuantumControl.jl`][QuantumControl] and the [JuliaQuantumControl][] or
 
 ## Installation
 
-In the future, you will be able to install this package with
+As usual, the package can be installed with
 
 ~~~
 pkg> add ParameterizedQuantumControl
 ~~~
+
+## Usage
+
+* Define a `QuantumControl.ControlProblem` that contains parameterized generators or control fields: `get_parameters(problem)` must return a vector of control parameters.
+
+* Call `QuantumControl.optimize` using `method=ParameterizedQuantumControl`, and give an appropriate backend and optimizer, e.g.,
+
+  ```
+  optimize(
+      problem;
+      method=ParameterizedQuantumControl,
+      backend=Optimization,
+      optimizer=NLopt.LN_NELDERMEAD(),
+  )
+  ```
+
+Currently, only [`Optimization.jl`](https://github.com/SciML/Optimization.jl) is supported as a backend, and only with gradient-free optimizers. In the future, this will be extended to gradient-based optimizers (i.e., the "GOAT" method), as well as specific pulse parametrizations (e.g., CRAB).
 
 
 ## Documentation

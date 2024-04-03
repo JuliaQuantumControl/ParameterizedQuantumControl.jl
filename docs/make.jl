@@ -1,10 +1,17 @@
+using Pkg
+
+DOCUMENTER_VERSION =
+    [p for (uuid, p) in Pkg.dependencies() if p.name == "Documenter"][1].version
+if DOCUMENTER_VERSION <= v"1.3.0"
+    Pkg.develop("Documenter")
+end
+
 using QuantumControlBase
 using QuantumPropagators
 using ParameterizedQuantumControl
 using Documenter
 using DocumenterCitations
 using DocumenterInterLinks
-using Pkg
 using Plots
 
 gr()
@@ -31,6 +38,11 @@ links = InterLinks(
     "Examples" => "https://juliaquantumcontrol.github.io/QuantumControlExamples.jl/$DEV_OR_STABLE",
 )
 
+fallbacks = ExternalFallbacks(
+    "QuantumControlBase.ControlProblem" => "@extref QuantumControl :jl:type:`QuantumControlBase.ControlProblem`",
+    "get_parameters" => "@extref QuantumControl :jl:function:`QuantumPropagators.Controls.get_parameters`",
+)
+
 
 println("Starting makedocs")
 
@@ -44,7 +56,7 @@ PAGES = [
 ]
 
 makedocs(;
-    plugins=[bib, links],
+    plugins=[bib, links, fallbacks],
     modules=[ParameterizedQuantumControl],
     authors=AUTHORS,
     sitename="ParameterizedQuantumControl.jl",

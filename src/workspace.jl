@@ -2,7 +2,7 @@ using QuantumControlBase: QuantumControlBase, init_prop_trajectory
 using QuantumControlBase: get_parameters
 
 
-"""Parameterized Optimiztion Workspace."""
+"""Parameterized Optimization Workspace."""
 mutable struct ParameterizedOptWrk{O}
 
     # a copy of the trajectories
