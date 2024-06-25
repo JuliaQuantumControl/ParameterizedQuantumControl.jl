@@ -1,4 +1,4 @@
-using QuantumControlBase: QuantumControlBase, init_prop_trajectory
+import QuantumControlBase
 using QuantumControlBase.QuantumPropagators.Controls: get_parameters
 
 
@@ -24,15 +24,15 @@ mutable struct ParameterizedOptWrk{O}
     # The backend (name of package/module)
     backend::Symbol
 
+    # The states from the most recent evaluation of the functional
+    states
+
     # The optimizer
     optimizer::O
 
     optimizer_state
 
     result
-
-    # for normal forward propagation
-    propagators
 
     use_threads::Bool
 
@@ -42,20 +42,8 @@ function ParameterizedOptWrk(problem::QuantumControlBase.ControlProblem; verbose
     use_threads = get(problem.kwargs, :use_threads, false)
     kwargs = Dict(problem.kwargs)  # creates a shallow copy; ok to modify
     trajectories = [traj for traj in problem.trajectories]
+    states = [traj.initial_state for traj in trajectories]
     parameters = get(problem.kwargs, :parameters, get_parameters(problem))
-    tlist = problem.tlist
-    _prefixes = ["prop_",]
-    propagators = [
-        init_prop_trajectory(
-            traj,
-            tlist;
-            verbose,
-            _msg="Initializing fw-prop of trajectory $k",
-            _prefixes,
-            _filter_kwargs=true,
-            kwargs...
-        ) for (k, traj) in enumerate(trajectories)
-    ]
     J_parts = zeros(1)
     fg_count = zeros(Int64, 2)
     backend = Symbol(nothing)
@@ -96,10 +84,10 @@ function ParameterizedOptWrk(problem::QuantumControlBase.ControlProblem; verbose
         J_parts,
         fg_count,
         backend,
+        states,
         optimizer,
         optimizer_state,
         result,
-        propagators,
         use_threads
     )
 end

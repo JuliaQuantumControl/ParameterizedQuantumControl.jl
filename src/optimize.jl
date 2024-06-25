@@ -3,7 +3,7 @@ import QuantumControlBase: optimize
 using LinearAlgebra
 using QuantumControlBase: @threadsif
 using QuantumControlBase: set_atexit_save_optimization
-using QuantumControlBase.QuantumPropagators: reinit_prop!, propagate
+using QuantumControlBase: propagate_trajectories
 
 
 @doc raw"""
@@ -53,6 +53,7 @@ with explicit keyword arguments to `optimize`.
 * `ub`: An `AbstractVector` of upper bound values for a box constraint,
   cf. `lb`
 * `use_threads`: If given a `true`, propagate trajectories in parallel
+* `iter_stop`: The maximum number of iterations
 """
 function optimize_parameters(problem)
 
@@ -69,17 +70,22 @@ function optimize_parameters(problem)
     τ = wrk.result.tau_vals
     J = wrk.J_parts
 
-    N = length(wrk.trajectories)
-
     # loss function
     function f(u; count_call=true)
         copyto!(wrk.parameters, u)
-        @threadsif wrk.use_threads for k = 1:N
-            Ψ₀ = wrk.trajectories[k].initial_state
-            Ψₖ = propagate(Ψ₀, wrk.propagators[k])
-            τ[k] = isnothing(Ψtgt[k]) ? NaN : (Ψtgt[k] ⋅ Ψₖ)
+        Ψ = propagate_trajectories(
+            wrk.trajectories,
+            problem.tlist;
+            use_threads=wrk.use_threads,
+            _prefixes=["prop_"],
+            _filter_kwargs=true,
+            problem.kwargs...
+        )
+        for k in eachindex(wrk.trajectories)
+            Ψtgt = wrk.trajectories[k].target_state
+            τ[k] = isnothing(Ψtgt) ? NaN : (Ψtgt ⋅ Ψ[k])
         end
-        Ψ = [p.state for p ∈ wrk.propagators]
+        wrk.states = Ψ
         J[1] = J_T_func(Ψ, wrk.trajectories; τ=τ)
         if count_call
             wrk.fg_count[2] += 1
@@ -185,8 +191,8 @@ end
 # `info_hook`)
 function update_result!(wrk::ParameterizedOptWrk, i::Int64)
     res = wrk.result
-    for (k, propagator) in enumerate(wrk.propagators)
-        copyto!(res.states[k], propagator.state)
+    for (k, Ψ) in enumerate(wrk.states)
+        copyto!(res.states[k], Ψ)
     end
     copyto!(wrk.result.optimized_parameters, wrk.parameters)
     res.f_calls += wrk.fg_count[2]
