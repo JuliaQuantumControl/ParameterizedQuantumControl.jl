@@ -26,8 +26,8 @@ jobs:
             arch: x64
     steps:
       - uses: actions/checkout@v4
-      - uses: julia-actions/cache@v1
-      - uses: julia-actions/setup-julia@v1
+      - uses: julia-actions/cache@v2
+      - uses: julia-actions/setup-julia@v2
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
@@ -42,16 +42,17 @@ jobs:
       - run: |
           # Summarize coverage
           julia --project=test -e 'using QuantumControlTestUtils; show_coverage();'
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
         with:
           file: lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
   docs:
     name: Documentation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: julia-actions/cache@v1
-      - uses: julia-actions/setup-julia@v1
+      - uses: julia-actions/cache@v2
+      - uses: julia-actions/setup-julia@v2
         with:
           version: '1'
       - run: |
@@ -71,7 +72,7 @@ jobs:
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
       - name: Zip the HTML documentation
         run: zip-folder --debug --auto-root --outfile "docs.zip" docs/build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         name: Upload documentation artifacts
         with:
           name: ParameterizedQuantumControl
@@ -85,7 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: julia-actions/setup-julia@v1
+      - uses: julia-actions/setup-julia@v2
         with:
           version: '1'
       - name: Get codestyle settings
