@@ -30,17 +30,32 @@ if endswith(VERSION, "dev")
 end
 
 links = InterLinks(
+    "Julia" => "https://docs.julialang.org/en/v1/",
     "QuantumControlBase" => "https://juliaquantumcontrol.github.io/QuantumControlBase.jl/$DEV_OR_STABLE",
     "QuantumPropagators" => "https://juliaquantumcontrol.github.io/QuantumPropagators.jl/$DEV_OR_STABLE",
     "QuantumGradientGenerators" => "https://juliaquantumcontrol.github.io/QuantumGradientGenerators.jl/$DEV_OR_STABLE",
     "QuantumControl" => "https://juliaquantumcontrol.github.io/QuantumControl.jl/$DEV_OR_STABLE",
     "GRAPE" => "https://juliaquantumcontrol.github.io/GRAPE.jl/$DEV_OR_STABLE",
+    "Krotov" => "https://juliaquantumcontrol.github.io/Krotov.jl/$DEV_OR_STABLE",
     "Examples" => "https://juliaquantumcontrol.github.io/QuantumControlExamples.jl/$DEV_OR_STABLE",
+    "Optimization" => "https://docs.sciml.ai/Optimization/stable/",
+    "ComponentArrays" => "https://jonniedie.github.io/ComponentArrays.jl/stable/",
+    "RecursiveArrayTools" => "https://docs.sciml.ai/RecursiveArrayTools/stable/",
 )
 
 fallbacks = ExternalFallbacks(
     "QuantumControlBase.ControlProblem" => "@extref QuantumControl :jl:type:`QuantumControlBase.ControlProblem`",
+    "QuantumControl.ControlProblem" => "@extref QuantumControl :jl:type:`QuantumControlBase.ControlProblem`",
+    "ControlProblem" => "@extref QuantumControl :jl:type:`QuantumControlBase.ControlProblem`",
+    "Trajectory" => "@extref QuantumControl :jl:type:`QuantumControlBase.Trajectory`",
     "get_parameters" => "@extref QuantumControl :jl:function:`QuantumPropagators.Controls.get_parameters`",
+    "QuantumControl.Generators.Generator" => "@extref QuantumControl :jl:type:`QuantumPropagators.Generators.Generator`",
+    "QuantumControl.hamiltonian" => "@extref QuantumControl :jl:function:`QuantumPropagators.Generators.hamiltonian`",
+    "QuantumControl.liouvillian" => "@extref QuantumControl :jl:function:`QuantumPropagators.Generators.liouvillian`",
+    "QuantumControl.Controls.ParameterizedFunction" => "@extref QuantumControl :jl:type:`QuantumPropagators.Controls.ParameterizedFunction`",
+    "QuantumControl.propagate_trajectories" => "@extref QuantumControl :jl:function:`QuantumControlBase.propagate_trajectories`",
+    "QuantumControl.init_prop" => "@extref QuantumControl :jl:function:`QuantumPropagators.init_prop`",
+    "QuantumControl.prop_step!" => "@extref QuantumControl :jl:function:`QuantumPropagators.prop_step!`",
 )
 
 
@@ -73,7 +88,7 @@ makedocs(;
                 "https://juliaquantumcontrol.github.io/QuantumControl.jl/dev/assets/topbar/topbar.js"
             ),
         ],
-        mathengine=KaTeX(),
+        mathengine=KaTeX(Dict(:macros => Dict("\\Op" => "\\hat{#1}"))),
         footer="[$NAME.jl]($GITHUB) v$VERSION docs powered by [Documenter.jl](https://github.com/JuliaDocs/Documenter.jl).",
     ),
     pages=PAGES,

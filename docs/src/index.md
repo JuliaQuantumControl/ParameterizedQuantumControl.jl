@@ -33,9 +33,9 @@ pkg> add ParameterizedQuantumControl
 
 ## Usage
 
-* Define a [`QuantumControl.ControlProblem`](@extref QuantumControl QuantumControlBase.ControlProblem) that contains parameterized generators or control fields: [`get_parameters(problem)`](@extref QuantumControl QuantumPropagators.Controls.get_parameters) must return a vector of control parameters.
+* Define a [`QuantumControl.ControlProblem`](@ref) that contains parameterized generators or control fields: [`get_parameters(problem)`](@ref get_parameters) must return a vector of control parameters.
 
-* Call [`QuantumControl.optimize`](@extref QuantumControl QuantumControlBase.optimize) using `method=ParameterizedQuantumControl`, and give an appropriate backend and optimizer, e.g.,
+* Call [`QuantumControl.optimize`](@extref QuantumControl `QuantumControlBase.optimize`) using `method=ParameterizedQuantumControl`, and give an appropriate backend and optimizer, e.g.,
 
   ```
   optimize(
@@ -48,7 +48,7 @@ pkg> add ParameterizedQuantumControl
 
 See [`ParameterizedQuantumControl.optimize_parameters`](@ref) for details.
 
-Currently, only [`Optimization.jl`](https://github.com/SciML/Optimization.jl) is supported as a backend, and only with gradient-free optimizers. In the future, this will be extended to gradient-based optimizers (i.e., the "GOAT" method [MachnesPRL2018](@cite)), as well as specific pulse parametrizations (e.g., CRAB [CanevaPRA2011](@cite)).
+Currently, only [`Optimization.jl`](@extref Optimization :doc:`index`) is supported as a backend, and only with gradient-free optimizers. In the future, this will be extended to gradient-based optimizers (i.e., the "GOAT" method [MachnesPRL2018](@cite)), as well as specific pulse parametrizations (e.g., CRAB [CanevaPRA2011](@cite)).
 
 
 ## Contents
