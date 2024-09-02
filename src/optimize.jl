@@ -1,9 +1,9 @@
-import QuantumControlBase: optimize
+import QuantumControl: optimize
 
 using LinearAlgebra
-using QuantumControlBase: @threadsif
-using QuantumControlBase: set_atexit_save_optimization
-using QuantumControlBase: propagate_trajectories
+using QuantumControl: @threadsif
+using QuantumControl: set_atexit_save_optimization
+using QuantumControl: propagate_trajectories
 
 
 @doc raw"""
@@ -12,7 +12,7 @@ using ParameterizedQuantumControl
 result = optimize(problem; method=ParameterizedQuantumControl, kwargs...)
 ```
 
-optimizes the given control [`problem`](@ref QuantumControlBase.ControlProblem)
+optimizes the given control [`problem`](@ref QuantumControl.ControlProblem)
 by varying a set of control parameters in order to minimize the functional
 
 ```math

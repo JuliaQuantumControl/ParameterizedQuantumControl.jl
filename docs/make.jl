@@ -6,7 +6,7 @@ if DOCUMENTER_VERSION <= v"1.3.0"
     Pkg.develop("Documenter")
 end
 
-using QuantumControlBase
+using QuantumControl
 using QuantumPropagators
 using ParameterizedQuantumControl
 using Documenter
@@ -31,7 +31,7 @@ end
 
 links = InterLinks(
     "Julia" => "https://docs.julialang.org/en/v1/",
-    "QuantumControlBase" => "https://juliaquantumcontrol.github.io/QuantumControlBase.jl/$DEV_OR_STABLE",
+    "QuantumControl" => "https://juliaquantumcontrol.github.io/QuantumControl.jl/$DEV_OR_STABLE",
     "QuantumPropagators" => "https://juliaquantumcontrol.github.io/QuantumPropagators.jl/$DEV_OR_STABLE",
     "QuantumGradientGenerators" => "https://juliaquantumcontrol.github.io/QuantumGradientGenerators.jl/$DEV_OR_STABLE",
     "QuantumControl" => "https://juliaquantumcontrol.github.io/QuantumControl.jl/$DEV_OR_STABLE",
@@ -44,16 +44,11 @@ links = InterLinks(
 )
 
 fallbacks = ExternalFallbacks(
-    "QuantumControlBase.ControlProblem" => "@extref QuantumControl :jl:type:`QuantumControlBase.ControlProblem`",
-    "QuantumControl.ControlProblem" => "@extref QuantumControl :jl:type:`QuantumControlBase.ControlProblem`",
-    "ControlProblem" => "@extref QuantumControl :jl:type:`QuantumControlBase.ControlProblem`",
-    "Trajectory" => "@extref QuantumControl :jl:type:`QuantumControlBase.Trajectory`",
     "get_parameters" => "@extref QuantumControl :jl:function:`QuantumPropagators.Controls.get_parameters`",
     "QuantumControl.Generators.Generator" => "@extref QuantumControl :jl:type:`QuantumPropagators.Generators.Generator`",
     "QuantumControl.hamiltonian" => "@extref QuantumControl :jl:function:`QuantumPropagators.Generators.hamiltonian`",
     "QuantumControl.liouvillian" => "@extref QuantumControl :jl:function:`QuantumPropagators.Generators.liouvillian`",
     "QuantumControl.Controls.ParameterizedFunction" => "@extref QuantumControl :jl:type:`QuantumPropagators.Controls.ParameterizedFunction`",
-    "QuantumControl.propagate_trajectories" => "@extref QuantumControl :jl:function:`QuantumControlBase.propagate_trajectories`",
     "QuantumControl.init_prop" => "@extref QuantumControl :jl:function:`QuantumPropagators.init_prop`",
     "QuantumControl.prop_step!" => "@extref QuantumControl :jl:function:`QuantumPropagators.prop_step!`",
 )

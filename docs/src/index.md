@@ -35,7 +35,7 @@ pkg> add ParameterizedQuantumControl
 
 * Define a [`QuantumControl.ControlProblem`](@ref) that contains parameterized generators or control fields: [`get_parameters(problem)`](@ref get_parameters) must return a vector of control parameters.
 
-* Call [`QuantumControl.optimize`](@extref QuantumControl `QuantumControlBase.optimize`) using `method=ParameterizedQuantumControl`, and give an appropriate backend and optimizer, e.g.,
+* Call [`QuantumControl.optimize`](@extref) using `method=ParameterizedQuantumControl`, and give an appropriate backend and optimizer, e.g.,
 
   ```
   optimize(

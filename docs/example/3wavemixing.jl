@@ -2,7 +2,7 @@
 using QuantumControl.Interfaces: check_generator
 using ComponentArrays: ComponentVector, Axis
 using QuantumControl.Controls: get_parameters
-using QuantumControlBase.QuantumPropagators: propagate
+using QuantumControl.QuantumPropagators: propagate
 import OrdinaryDiffEq
 using UnPack: @unpack
 
