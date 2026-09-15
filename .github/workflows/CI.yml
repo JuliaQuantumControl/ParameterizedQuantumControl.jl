@@ -42,7 +42,7 @@ jobs:
       - run: |
           # Summarize coverage
           julia --project=test -e 'using QuantumControlTestUtils; show_coverage();'
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v6
         with:
           file: lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
