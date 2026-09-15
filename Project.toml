@@ -17,7 +17,7 @@ Optimization = "7f7a1694-90dd-40f0-9382-eb1efda571ba"
 ParameterizedQuantumControlOptimizationExt = "Optimization"
 
 [compat]
-Dates = "1"
+Dates = "1, < 0.0.1"
 LinearAlgebra = "1"
 Optimization = "3"
 Printf = "1"
