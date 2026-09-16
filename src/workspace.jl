@@ -10,7 +10,7 @@ mutable struct ParameterizedOptWrk{O}
 
     # parameters: AbstractVector of parameters in the problem. This must
     # aliases into the problem, so that mutating the vector directly affects
-    # the propgation
+    # the propagation
     parameters::AbstractVector
 
     # The kwargs from the control problem
