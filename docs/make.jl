@@ -27,7 +27,7 @@ links = InterLinks(
     "Krotov" => "https://juliaquantumcontrol.github.io/Krotov.jl/$DEV_OR_STABLE",
     "Examples" => "https://juliaquantumcontrol.github.io/QuantumControlExamples.jl/$DEV_OR_STABLE",
     "Optimization" => "https://docs.sciml.ai/Optimization/stable/",
-    "ComponentArrays" => "https://jonniedie.github.io/ComponentArrays.jl/stable/",
+    "ComponentArrays" => "https://sciml.github.io/ComponentArrays.jl/stable/",
     "RecursiveArrayTools" => "https://docs.sciml.ai/RecursiveArrayTools/stable/",
 )
 
