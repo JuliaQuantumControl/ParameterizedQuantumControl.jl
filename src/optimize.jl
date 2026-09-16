@@ -71,14 +71,14 @@ function optimize_parameters(problem)
     J = wrk.J_parts
 
     # loss function
-    function f(u; count_call=true)
+    function f(u; count_call = true)
         copyto!(wrk.parameters, u)
         Ψ = propagate_trajectories(
             wrk.trajectories,
             problem.tlist;
-            use_threads=wrk.use_threads,
-            _prefixes=["prop_"],
-            _filter_kwargs=true,
+            use_threads = wrk.use_threads,
+            _prefixes = ["prop_"],
+            _filter_kwargs = true,
             problem.kwargs...
         )
         for k in eachindex(wrk.trajectories)
@@ -86,7 +86,7 @@ function optimize_parameters(problem)
             τ[k] = isnothing(Ψtgt) ? NaN : (Ψtgt ⋅ Ψ[k])
         end
         wrk.states = Ψ
-        J[1] = J_T_func(Ψ, wrk.trajectories; τ=τ)
+        J[1] = J_T_func(Ψ, wrk.trajectories; τ = τ)
         if count_call
             wrk.fg_count[2] += 1
         end

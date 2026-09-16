@@ -38,7 +38,7 @@ mutable struct ParameterizedOptWrk{O}
 
 end
 
-function ParameterizedOptWrk(problem::QuantumControl.ControlProblem; verbose=false)
+function ParameterizedOptWrk(problem::QuantumControl.ControlProblem; verbose = false)
     use_threads = get(problem.kwargs, :use_threads, false)
     kwargs = Dict(problem.kwargs)  # creates a shallow copy; ok to modify
     trajectories = [traj for traj in problem.trajectories]
