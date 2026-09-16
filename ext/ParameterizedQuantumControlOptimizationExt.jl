@@ -30,8 +30,8 @@ function run_optimizer(
         (u, _) -> f(u),
         u0,
         nothing;
-        lb=get(wrk.kwargs, :lb, nothing),
-        ub=get(wrk.kwargs, :ub, nothing)
+        lb = get(wrk.kwargs, :lb, nothing),
+        ub = get(wrk.kwargs, :ub, nothing)
     )
     try
         sol = Optimization.solve(prob, optimizer; callback)

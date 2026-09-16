@@ -35,7 +35,7 @@ When there are multiple trajectories (and thus multiple generators) in the [`Con
 When using a built-in [`QuantumControl.Generators.Generator`](@ref) as returned by [`QuantumControl.hamiltonian`](@ref) or [`QuantumControl.liouvillian`](@ref), the [`get_parameters`](@ref) function delegates to the `get_parameters(control)` for any control returned by [`get_controls(generator)`](@extref QuantumControl `QuantumPropagators.Controls.get_controls`). The recommended way to implement a custom parameterized control is to subtype [`QuantumControl.Controls.ParameterizedFunction`](@ref). Just like parameters from different generators in the same control problem are automatically combined, the parameters from different controls are also automatically combined into a [`RecursiveArrayTools.ArrayPartition`](@extref), taking into account if `get_parameters` returns the same object for two different controls. In any case, for any custom implementation of a parameterized system, and especially if control parameters are aliased between different components of the system, it is important to carefully check that the result of `get_parameters` contains all the independent parameters of the problem.
 
 ```@raw todo
-The is a connection to be made with the `parameters` field of a propagator and the paremters of the dynamic generators for the propagation.
+There is a connection to be made with the `parameters` field of a propagator and the parameters of the dynamic generators for the propagation.
 ```
 
 ```@raw todo

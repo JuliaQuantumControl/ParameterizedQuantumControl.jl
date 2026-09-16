@@ -10,15 +10,27 @@ struct EnantiomerHam
     parameters::ComponentVector{
         Float64,
         Vector{Float64},
-        Tuple{Axis{(ΔT₁=1, ΔT₂=2, ΔT₃=3, ϕ₁=4, ϕ₂=5, ϕ₃=6, E₀₁=7, E₀₂=8, E₀₃=9)}}
+        Tuple{
+            Axis{(
+                ΔT₁ = 1,
+                ΔT₂ = 2,
+                ΔT₃ = 3,
+                ϕ₁ = 4,
+                ϕ₂ = 5,
+                ϕ₃ = 6,
+                E₀₁ = 7,
+                E₀₂ = 8,
+                E₀₃ = 9
+            )}
+        }
     }
 end
 
-function EnantiomerHam(; a=1000.0, sign=1, kwargs...)
+function EnantiomerHam(; a = 1000.0, sign = 1, kwargs...)
     EnantiomerHam(a, sign, ComponentVector(; kwargs...))
 end
 
-function EnantiomerHam(parameters; a=1000.0, sign=1)
+function EnantiomerHam(parameters; a = 1000.0, sign = 1)
     EnantiomerHam(a, sign, parameters)
 end
 
@@ -62,9 +74,9 @@ function evaluate!(H, G::EnantiomerHam, t; _...)
     T₂ = ΔT₁ + ΔT₂
     T₃ = ΔT₁ + ΔT₂ + ΔT₃
     μ = sign
-    E₁ = E(t; E₀=E₀₁, t₁=0.0, t₂=T₁, a)
-    E₂ = E(t; E₀=E₀₂, t₁=T₁, t₂=T₂, a)
-    E₃ = E(t; E₀=E₀₃, t₁=T₂, t₂=T₃, a)
+    E₁ = E(t; E₀ = E₀₁, t₁ = 0.0, t₂ = T₁, a)
+    E₂ = E(t; E₀ = E₀₂, t₁ = T₁, t₂ = T₂, a)
+    E₃ = E(t; E₀ = E₀₃, t₁ = T₂, t₂ = T₃, a)
     copyto!(
         H,
         µ * [

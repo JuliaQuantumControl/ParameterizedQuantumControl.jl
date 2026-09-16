@@ -10,7 +10,7 @@ mutable struct ParameterizedOptWrk{O}
 
     # parameters: AbstractVector of parameters in the problem. This must
     # aliases into the problem, so that mutating the vector directly affects
-    # the propgation
+    # the propagation
     parameters::AbstractVector
 
     # The kwargs from the control problem
@@ -38,7 +38,7 @@ mutable struct ParameterizedOptWrk{O}
 
 end
 
-function ParameterizedOptWrk(problem::QuantumControl.ControlProblem; verbose=false)
+function ParameterizedOptWrk(problem::QuantumControl.ControlProblem; verbose = false)
     use_threads = get(problem.kwargs, :use_threads, false)
     kwargs = Dict(problem.kwargs)  # creates a shallow copy; ok to modify
     trajectories = [traj for traj in problem.trajectories]
